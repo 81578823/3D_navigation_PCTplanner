@@ -127,5 +127,18 @@ https://github.com/user-attachments/assets/9cc8797a-0ef1-41de-a9bb-ca349c64954c
 https://github.com/user-attachments/assets/1f55a9ab-1768-40ba-a0ac-97dde8c26c4d
 
 
+## Reference
+‵‵`
+@ARTICLE{yang2024efficient,
+  author={Yang, Bowen and Cheng, Jie and Xue, Bohuan and Jiao, Jianhao and Liu, Ming},
+  journal={IEEE/ASME Transactions on Mechatronics}, 
+  title={Efficient Global Navigational Planning in 3-D Structures Based on Point Cloud Tomography}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={1-12}
+}
+```
+
 
 
