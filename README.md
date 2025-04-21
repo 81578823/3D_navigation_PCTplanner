@@ -63,7 +63,10 @@ roslaunch livox_ros_driver2 msg_MID360.launch
 ```bash
 source devel/setup.bash
 roslaunch fast_lio mapping_mid360.launch
-``` 
+```
+<p align="center">
+    <img alt="SUSTech" src="./media/mapping.jpg" height="150">
+</p>
 The result of the map built by fast_lio2 will eventually be automatically saved in the PCD folder
 
 ## Localization
