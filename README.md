@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="SUSTech" src="./media/SUSTech_University_Logo.png" height="150">
+    <img alt="SUSTech" src="./media/SUSTech_University_Logo.png" height="200">
 </p>
 
 # 3D navigation in the room and on the stairs
