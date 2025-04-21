@@ -78,12 +78,12 @@ roslaunch fast_lio_localization localization_MID360.launch
 
 2. There are two methods to localize the robot 
 
-### method1: Use the 2d pose estimation (recommended)
+**method1: Use the 2d pose estimation (recommended)**
 <p align="center">
     <img alt="SUSTech" src="./media/2d_pose.png" height="50">
 </p>
 
-### method2: Use the command line
+**method2: Use the command line**
 ```bash
 rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0
 ```
