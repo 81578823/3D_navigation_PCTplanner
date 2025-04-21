@@ -64,7 +64,7 @@ roslaunch livox_ros_driver2 msg_MID360.launch
 source devel/setup.bash
 roslaunch fast_lio mapping_mid360.launch
 ``` 
-The result of the map built by fast lio will eventually be automatically saved in the PCD folder
+The result of the map built by fast_lio2 will eventually be automatically saved in the PCD folder
 
 ## Localization
 1. Open a new terminal
