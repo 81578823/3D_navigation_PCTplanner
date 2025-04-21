@@ -65,7 +65,7 @@ source devel/setup.bash
 roslaunch fast_lio mapping_mid360.launch
 ```
 <p align="center">
-    <img alt="SUSTech" src="./media/mapping" height="150">
+    <img alt="SUSTech" src="./media/mapping" height="250">
 </p>
 The result of the map built by fast_lio2 will eventually be automatically saved in the PCD folder
 
