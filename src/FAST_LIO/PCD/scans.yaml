@@ -1,0 +1,7 @@
+image: /home/wbb/catkin_ws_3d/src/FAST_LIO/PCD/scans.pgm
+resolution: 0.050000
+origin: [-9.740536, -24.949173, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+
