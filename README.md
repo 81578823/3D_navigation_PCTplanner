@@ -140,5 +140,18 @@ https://github.com/user-attachments/assets/1f55a9ab-1768-40ba-a0ac-97dde8c26c4d
 }
 ```
 
+```
+@ARTICLE{9697912,
+  author={Xu, Wei and Cai, Yixi and He, Dongjiao and Lin, Jiarong and Zhang, Fu},
+  journal={IEEE Transactions on Robotics}, 
+  title={FAST-LIO2: Fast Direct LiDAR-Inertial Odometry}, 
+  year={2022},
+  volume={38},
+  number={4},
+  pages={2053-2073},
+  keywords={Laser radar;Robots;Real-time systems;Feature extraction;Data structures;Point cloud compression;Kalman filters;Aerial systems;sensor fusion;simultaneous localization and mapping (SLAM)},
+  doi={10.1109/TRO.2022.3141876}}
+```
+
 
 
