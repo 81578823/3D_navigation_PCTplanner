@@ -128,7 +128,7 @@ https://github.com/user-attachments/assets/1f55a9ab-1768-40ba-a0ac-97dde8c26c4d
 
 
 ## Reference
-```bash
+```
 @ARTICLE{yang2024efficient,
   author={Yang, Bowen and Cheng, Jie and Xue, Bohuan and Jiao, Jianhao and Liu, Ming},
   journal={IEEE/ASME Transactions on Mechatronics}, 
