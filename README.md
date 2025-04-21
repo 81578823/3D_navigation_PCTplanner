@@ -117,11 +117,11 @@ For convenience, please add ```export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/YOUR/DIR
 
 ## Video Demonstration
 
-Navigation on the stairs:
-![stairs](https://github.com/user-attachments/assets/ae1d8243-5a75-4ce6-a341-f85be42feb06)
-
 Navigation in the room:
+![room](https://github.com/user-attachments/assets/9cc8797a-0ef1-41de-a9bb-ca349c64954c)
 
+Navigation on the stairs:
+![stairs](https://github.com/user-attachments/assets/1f55a9ab-1768-40ba-a0ac-97dde8c26c4d)
 
 
 
