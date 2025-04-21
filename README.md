@@ -112,7 +112,7 @@ For convenience, please add ```export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/YOUR/DIR
 
 ### Overview of the navigation frame
 <p align="center">
-    <img alt="SUSTech" src="./media/navigation.png" height="200">
+    <img alt="SUSTech" src="./media/navigation.png" height="350">
 </p>
 
 ## Video Demonstration
