@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -Wall -Wextra -march=native -O2  -shared -Wl,-soname,libmap_manager.so -o libmap_manager.so CMakeFiles/map_manager.dir/dense_elevation_map.cc.o 
