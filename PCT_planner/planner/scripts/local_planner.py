@@ -1,0 +1,169 @@
+#!/usr/bin/env python3
+import rospy
+import numpy as np
+from geometry_msgs.msg import PoseStamped, Twist, Point
+from nav_msgs.msg import Odometry, Path
+from tf.transformations import euler_from_quaternion
+import math
+import time
+
+
+class LocalPlanner:
+    def __init__(self):
+        # 初始化ROS节点
+        rospy.init_node("local_planner")
+
+        # 参数设置
+        self.lookahead_distance = 1.0    # 前瞻距离（单位：米）
+        self.max_speed = 1.0             # 最大线速度（m/s）
+        self.kp_angular = 0.2            # 转向角比例系数
+        self.last_speed = 0.0
+        self.MAX_ACCEL = 0.3  # m/s²
+        
+        # 订阅全局路径和机器人位姿
+        self.current_path = None
+        self.current_pose = None
+        rospy.Subscriber("/pct_path", Path, self.path_callback)
+        rospy.Subscriber("/localization", Odometry, self.odom_callback)
+        self.target_pub = rospy.Publisher("/target_point", Point, queue_size=1)
+
+        # 发布控制指令
+        self.cmd_vel_pub = rospy.Publisher("/topic/limx/twist", Twist, queue_size=1)
+
+    def path_callback(self, msg):
+        """接收全局路径并转换为坐标点列表"""
+        # 创建停止指令（假设已正确初始化速度值为0）
+        twist = Twist()  
+        # 如果需要显式设置零速度：
+        twist.linear.x = 0.0
+        twist.angular.z = 0.0
+
+        # 计算每次发布的间隔（0.1秒）
+        publish_rate = 10  # 赫兹
+        interval = 1.0 / publish_rate
+
+        # 连续发布10次
+        for _ in range(10):
+            self.cmd_vel_pub.publish(twist)
+            time.sleep(interval)
+
+        # 清空当前路径
+        self.current_path = None
+        self.current_path = [
+            (p.pose.position.x, p.pose.position.y) 
+            for p in msg.poses
+        ]
+        rospy.loginfo("Received new path with {} points".format(len(self.current_path)))
+
+    def odom_callback(self, msg):
+        """获取当前机器人位姿"""
+        self.current_pose = msg.pose.pose
+
+    def get_closest_point(self):
+        """找到路径中距离机器人最近的点的索引"""
+        if not self.current_path or self.current_pose is None:
+            return -1
+
+        robot_pos = np.array([
+            self.current_pose.position.x, 
+            self.current_pose.position.y
+        ])
+        distances = [
+            np.linalg.norm(robot_pos - np.array(p)) 
+            for p in self.current_path
+        ]
+        return np.argmin(distances)
+
+    def find_target_point(self, closest_idx):
+        """根据前瞻距离选择目标点"""
+        if closest_idx < 0 or closest_idx >= len(self.current_path)-1:
+            return None
+
+        # 从最近点开始向后搜索
+        for i in range(closest_idx, len(self.current_path)):
+            target = np.array(self.current_path[i])
+            robot_pos = np.array([
+                self.current_pose.position.x,
+                self.current_pose.position.y
+            ])
+            distance = np.linalg.norm(target - robot_pos)
+            if distance >= self.lookahead_distance:
+                return target
+
+        # 如果所有点都小于前瞻距离，选择终点
+        return np.array(self.current_path[-1])
+
+    def calculate_velocity(self, target):
+        """Pure Pursuit转向计算"""
+        # 获取机器人航向角
+        (_, _, yaw) = euler_from_quaternion([self.current_pose.orientation.x, self.current_pose.orientation.y,
+                                    self.current_pose.orientation.z, self.current_pose.orientation.w])
+
+        # 计算目标点在机器人坐标系中的位置
+        robot_pos = np.array([
+            self.current_pose.position.x, 
+            self.current_pose.position.y
+        ])
+        delta = target - robot_pos
+        angle_diff=math.atan2(delta[1], delta[0]) - yaw
+        # 归一化角度到[-pi, pi]
+        if angle_diff > math.pi:
+            angle_diff -= 2 * math.pi
+        elif angle_diff < -math.pi:
+            angle_diff += 2 * math.pi
+        angular_speed = 0.8 * angle_diff # 计算相对角度
+        
+        linear_speed = min(self.max_speed, abs(delta[0])+0.3)
+
+        return angular_speed,linear_speed
+
+    def run(self):
+        rate = rospy.Rate(10)  # 10Hz控制频率
+        while not rospy.is_shutdown():
+            if self.current_path is None or self.current_pose is None:
+                rate.sleep()
+                continue
+
+            # 路径跟踪逻辑
+            closest_idx = self.get_closest_point()
+            target = self.find_target_point(closest_idx)
+            
+            if target is not None:
+                point_msg = Point(x=target[0], y=target[1], z=0)
+                self.target_pub.publish(point_msg)
+                
+            if target is None:
+                # 发布停止指令
+                twist = Twist()
+                self.cmd_vel_pub.publish(twist)
+                rospy.loginfo("The mission has completed, no target found.")
+                # break
+                
+
+                rate.sleep()
+                continue
+
+            # 计算控制指令
+            angular_speed, linear_speed= self.calculate_velocity(target)
+                        
+            # 接近终点时减速
+            if closest_idx >= len(self.current_path)-3:
+                linear_speed *= 0.3
+                
+            # 在发布速度前添加：
+            delta_speed = linear_speed - self.last_speed
+            if abs(delta_speed) > self.MAX_ACCEL * 0.1:  # 0.1s周期
+                linear_speed = self.last_speed + np.sign(delta_speed) * self.MAX_ACCEL * 0.1
+            self.last_speed = linear_speed
+            
+            # 发布指令
+            twist = Twist()
+            twist.linear.x = linear_speed
+            twist.angular.z = angular_speed
+            self.cmd_vel_pub.publish(twist)
+
+            rate.sleep()
+
+if __name__ == "__main__":
+    planner = LocalPlanner()
+    planner.run()

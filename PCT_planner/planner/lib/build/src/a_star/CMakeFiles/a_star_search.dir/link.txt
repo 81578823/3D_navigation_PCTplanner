@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -Wall -Wextra -march=native -O2  -shared -Wl,-soname,liba_star_search.so -o liba_star_search.so CMakeFiles/a_star_search.dir/a_star_search.cc.o 
