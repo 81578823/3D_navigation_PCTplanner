@@ -35,6 +35,10 @@ sudo apt install ros-noetic-ros-numpy
 pip install numpy==1.21
 pip install open3d
 ```
+```bash
+pip3 install cupy-cuda11x  # CUDA 11.x series
+pip3 install cupy-cuda12x  # CUDA 12.x series
+```
 
 2. Clone the repository in your workspace
 ```bash
