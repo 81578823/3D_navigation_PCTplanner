@@ -1,0 +1,16 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/wbb/catkin_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/opt/drake/lib/python3.8/site-packages",
+        "/home/wbb/catkin_workspace/devel/lib/python3/dist-packages",
+        "/home/wbb/rsl_rl"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/wbb/catkin_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/opt/drake/lib/python3.8/site-packages",
+        "/home/wbb/catkin_workspace/devel/lib/python3/dist-packages",
+        "/home/wbb/rsl_rl"
+    ]
+}
