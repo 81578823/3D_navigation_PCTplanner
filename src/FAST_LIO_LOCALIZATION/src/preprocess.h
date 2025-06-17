@@ -2,11 +2,7 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <livox_ros_driver2/CustomMsg.h>
-<<<<<<< HEAD
 #include <cstdint>  // 添加此行
-=======
->>>>>>> 7268d7a375c54f78620e1119d109946610cbbca0
-
 using namespace std;
 
 #define IS_VALID(a)  ((abs(a)>1e8) ? true : false)
@@ -52,11 +48,8 @@ POINT_CLOUD_REGISTER_POINT_STRUCT(velodyne_ros::Point,
     (float, z, z)
     (float, intensity, intensity)
     (float, time, time)
-<<<<<<< HEAD
     (std::uint16_t, ring, ring)
-=======
-    (uint16_t, ring, ring)
->>>>>>> 7268d7a375c54f78620e1119d109946610cbbca0
+
 )
 
 namespace ouster_ros {

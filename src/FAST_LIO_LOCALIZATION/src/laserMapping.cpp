@@ -115,11 +115,8 @@ PointCloudXYZI::Ptr _featsArray;
 pcl::VoxelGrid<PointType> downSizeFilterSurf;
 pcl::VoxelGrid<PointType> downSizeFilterMap;
 
-<<<<<<< HEAD
 KD_TREE<PointType> ikdtree;
-=======
-KD_TREE ikdtree;
->>>>>>> 7268d7a375c54f78620e1119d109946610cbbca0
+
 
 V3F XAxisPoint_body(LIDAR_SP_LEN, 0.0, 0.0);
 V3F XAxisPoint_world(LIDAR_SP_LEN, 0.0, 0.0);
